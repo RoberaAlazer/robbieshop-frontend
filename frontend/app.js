@@ -1,5 +1,4 @@
 const API_BASE = "https://robbieshop-backend-latest.onrender.com";
-
 const PRODUCTS_CONTAINER = document.getElementById("products");
 const CART_CONTAINER = document.getElementById("cart-items");
 const EMPTY_CART_BTN = document.getElementById("emptyCartBtn");
@@ -61,7 +60,8 @@ function renderProducts() {
         const card = document.createElement("div");
         card.className = "card";
 
-        const imageUrl = product.imageUrl || "shoe.jpg";
+      const imageUrl = product.imageUrl || "https://picsum.photos/300/200";
+
         card.innerHTML = `
             <img src="${imageUrl}" alt="${product.name}">
             <h3>${product.name}</h3>
