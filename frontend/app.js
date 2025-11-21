@@ -10,17 +10,14 @@ const PRODUCTS_PAGE_BTN = document.getElementById("productsPageBtn");
 const CART_PAGE_BTN = document.getElementById("cartPageBtn");
 const BACK_TO_PRODUCTS_BTN = document.getElementById("backToProductsBtn");
 const USER_ID = 1;
-
 let PRODUCTS = [];
 let cartCount = 0;
 
-// page init
 window.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
     fetchCart();
 });
 
-// NAV
 function showProductsPage() {
     PRODUCTS_PAGE.classList.remove("hidden");
     CART_PAGE.classList.add("hidden");
@@ -34,8 +31,6 @@ function showCartPage() {
 PRODUCTS_PAGE_BTN.addEventListener("click", showProductsPage);
 BACK_TO_PRODUCTS_BTN.addEventListener("click", showProductsPage);
 CART_PAGE_BTN.addEventListener("click", showCartPage);
-
-// PRODUCTS
 function fetchProducts() {
     fetch(`${API_BASE}/products`)
         .then(res => res.json())
@@ -59,10 +54,7 @@ function renderProducts() {
     PRODUCTS.forEach(product => {
         const card = document.createElement("div");
         card.className = "card";
-
-   const imageUrl = product.imageUrl || "shoe.jpg";
-
-
+       const imageUrl = product.imageUrl || "shoe.jpg";
         card.innerHTML = `
             <img src="${imageUrl}" alt="${product.name}">
             <h3>${product.name}</h3>
@@ -78,7 +70,6 @@ function renderProducts() {
         PRODUCTS_CONTAINER.appendChild(card);
     });
 }
-
 function addToCart(productId) {
     fetch(`${API_BASE}/cart`, {
         method: "POST",
@@ -101,8 +92,6 @@ function addToCart(productId) {
             alert("Error adding to cart");
         });
 }
-
-// CART
 function fetchCart() {
     fetch(`${API_BASE}/cart?userId=${USER_ID}`)
         .then(res => res.json())
@@ -125,10 +114,8 @@ function renderCart(items) {
         CART_COUNT_EL.textContent = cartCount;
         return;
     }
-
     let total = 0;
     cartCount = items.length;
-
     items.forEach(item => {
         const product = PRODUCTS.find(p => p.id === item.productId);
         const price = product ? product.price : 0;
@@ -158,7 +145,6 @@ function renderCart(items) {
     CART_TOTAL_EL.textContent = total.toFixed(2);
     CART_COUNT_EL.textContent = cartCount;
 }
-
 function deleteCartItem(cartId) {
     fetch(`${API_BASE}/cart/${cartId}`, {
         method: "DELETE"
@@ -175,7 +161,6 @@ function deleteCartItem(cartId) {
             alert("Error deleting cart item");
         });
 }
-
 EMPTY_CART_BTN.addEventListener("click", () => {
     fetch(`${API_BASE}/cart/emptycart?userId=${USER_ID}`, {
         method: "DELETE"
@@ -192,5 +177,3 @@ EMPTY_CART_BTN.addEventListener("click", () => {
             alert("Error emptying cart");
         });
 });
-
-
