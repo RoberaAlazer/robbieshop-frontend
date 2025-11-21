@@ -61,8 +61,7 @@ function renderProducts() {
         const card = document.createElement("div");
         card.className = "card";
 
-        const imageUrl = product.imageUrl || "https://picsum.photos/300/200";
-
+        const imageUrl = product.imageUrl || "shoe.jpg";
         card.innerHTML = `
             <img src="${imageUrl}" alt="${product.name}">
             <h3>${product.name}</h3>
@@ -192,3 +191,4 @@ EMPTY_CART_BTN.addEventListener("click", () => {
             alert("Error emptying cart");
         });
 });
+
